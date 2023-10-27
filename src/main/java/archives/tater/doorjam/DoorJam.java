@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DoorBlock;
 import net.minecraft.block.Oxidizable.OxidationLevel;
 import net.minecraft.block.OxidizableDoorBlock;
 import net.minecraft.sound.SoundCategory;
