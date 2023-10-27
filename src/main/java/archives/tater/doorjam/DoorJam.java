@@ -1,12 +1,11 @@
 package archives.tater.doorjam;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSetType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DoorBlock;
+import net.minecraft.block.Oxidizable.OxidationLevel;
+import net.minecraft.block.OxidizableDoorBlock;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -38,14 +37,16 @@ public class DoorJam implements ModInitializer {
 			Block block = state.getBlock();
 
 			// If block is not door or door is not acacia skip
-			if (!(block instanceof DoorBlock) || ((DoorBlock) block).getBlockSetType() != BlockSetType.ACACIA) return ActionResult.PASS;
+			if (!(block instanceof OxidizableDoorBlock door) || door.getDegradationLevel() == OxidationLevel.UNAFFECTED) return ActionResult.PASS;
 
-			if (!world.isClient()) return ActionResult.SUCCESS;
+			if (world.isClient()) return ActionResult.SUCCESS;
 
-			// Random chance
-			if (Math.random() > 0.5) return ActionResult.PASS;
+			// Exposed door has a 25% chance of jamming
+			if (door.getDegradationLevel() == OxidationLevel.EXPOSED && Math.random() > 0.25) return ActionResult.PASS;
+			// Weathered door has a 50% chance of jamming
+			if (door.getDegradationLevel() == OxidationLevel.WEATHERED && Math.random() > 0.5) return ActionResult.PASS;
 
-			world.playSound(null, pos, SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.8f);
+			world.playSound(null, pos, SoundEvents.BLOCK_COPPER_DOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.8f);
 
 			return ActionResult.SUCCESS;
 		});
