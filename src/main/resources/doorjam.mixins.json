@@ -3,7 +3,8 @@
 	"package": "archives.tater.doorjam.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"DoorBlockInvoker",
+		"DoorMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

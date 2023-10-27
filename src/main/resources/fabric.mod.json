@@ -17,17 +17,10 @@
 	"entrypoints": {
 		"main": [
 			"archives.tater.doorjam.DoorJam"
-		],
-		"client": [
-			"archives.tater.doorjam.DoorJamClient"
 		]
 	},
 	"mixins": [
-		"doorjam.mixins.json",
-		{
-			"config": "doorjam.client.mixins.json",
-			"environment": "client"
-		}
+		"doorjam.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.14.24",
