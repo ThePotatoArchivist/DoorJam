@@ -4,7 +4,8 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"DoorBlockInvoker",
-		"DoorMixin"
+		"DoorMixin",
+		"TrapdoorMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -3,6 +3,7 @@ package archives.tater.doorjam.mixin;
 import net.minecraft.block.*;
 import net.minecraft.block.Oxidizable.OxidationLevel;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -11,16 +12,12 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(OxidizableDoorBlock.class)
-public abstract class DoorMixin extends DoorBlock {
+@Mixin(OxidizableTrapdoorBlock.class)
+public abstract class TrapdoorMixin extends TrapdoorBlock {
 
-	@Shadow @Final private OxidationLevel oxidationLevel;
-
-	public DoorMixin(BlockSetType type, Settings settings) {
+	public TrapdoorMixin(BlockSetType type, Settings settings) {
 		super(type, settings);
 	}
 
@@ -30,8 +27,8 @@ public abstract class DoorMixin extends DoorBlock {
 			return ActionResult.PASS;
 		}
 
-		OxidizableDoorBlock door = (OxidizableDoorBlock) state.getBlock();
-		OxidationLevel oxidationLevel = door.getDegradationLevel();
+		OxidizableTrapdoorBlock trapdoor = (OxidizableTrapdoorBlock) state.getBlock();
+		OxidationLevel oxidationLevel = trapdoor.getDegradationLevel();
 		boolean oxidized = oxidationLevel != OxidationLevel.UNAFFECTED;
 
 		if (oxidized) {
@@ -39,21 +36,23 @@ public abstract class DoorMixin extends DoorBlock {
 
 			if (
 					oxidationLevel == OxidationLevel.OXIDIZED ||
-					// Exposed door has a 25% chance of jamming
+					// Exposed trapdoor has a 25% chance of jamming
 					(oxidationLevel == OxidationLevel.EXPOSED && Math.random() < 0.25) ||
-					// Weathered door has a 50% chance of jamming
+					// Weathered trapdoor has a 50% chance of jamming
 					(oxidationLevel == OxidationLevel.WEATHERED && Math.random() < 0.5)
 			) {
-				world.playSound(null, pos, SoundEvents.BLOCK_COPPER_DOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.4f);
+				world.playSound(null, pos, SoundEvents.BLOCK_COPPER_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.4f);
 				return ActionResult.SUCCESS;
 			}
 		}
 
 		// Original code
 		state = state.cycle(OPEN);
-		world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
-		((DoorBlockInvoker) this).invokePlayOpenCloseSound(oxidized ? null : player, world, pos, state.get(OPEN));
-		world.emitGameEvent(oxidized ? null : player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+		world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);
+		if (state.get(WATERLOGGED)) {
+			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		}
+		this.playToggleSound(oxidized ? null : player, world, pos, state.get(OPEN));
 		return ActionResult.success(world.isClient);
 	}
 }
