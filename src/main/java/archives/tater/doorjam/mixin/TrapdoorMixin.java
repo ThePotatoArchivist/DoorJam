@@ -37,9 +37,9 @@ public abstract class TrapdoorMixin extends TrapdoorBlock {
 			if (
 					oxidationLevel == OxidationLevel.OXIDIZED ||
 					// Exposed trapdoor has a 25% chance of jamming
-					(oxidationLevel == OxidationLevel.EXPOSED && Math.random() < 0.25) ||
+					(oxidationLevel == OxidationLevel.EXPOSED && world.getRandom().nextFloat() < 0.25) ||
 					// Weathered trapdoor has a 50% chance of jamming
-					(oxidationLevel == OxidationLevel.WEATHERED && Math.random() < 0.5)
+					(oxidationLevel == OxidationLevel.WEATHERED && world.getRandom().nextFloat() < 0.5)
 			) {
 				world.playSound(null, pos, SoundEvents.BLOCK_COPPER_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.4f);
 				return ActionResult.SUCCESS;
