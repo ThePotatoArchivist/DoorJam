@@ -40,9 +40,9 @@ public abstract class DoorMixin extends DoorBlock {
 			if (
 					oxidationLevel == OxidationLevel.OXIDIZED ||
 					// Exposed door has a 25% chance of jamming
-					(oxidationLevel == OxidationLevel.EXPOSED && Math.random() < 0.25) ||
+					(oxidationLevel == OxidationLevel.EXPOSED && world.random.nextFloat() < 0.25) ||
 					// Weathered door has a 50% chance of jamming
-					(oxidationLevel == OxidationLevel.WEATHERED && Math.random() < 0.5)
+					(oxidationLevel == OxidationLevel.WEATHERED && world.random.nextFloat() < 0.5)
 			) {
 				world.playSound(null, pos, SoundEvents.BLOCK_COPPER_DOOR_CLOSE, SoundCategory.BLOCKS, 0.9f, 0.4f);
 				return ActionResult.SUCCESS;
