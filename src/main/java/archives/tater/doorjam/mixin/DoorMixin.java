@@ -1,58 +1,42 @@
 package archives.tater.doorjam.mixin;
 
+import archives.tater.doorjam.DoorJam;
+import archives.tater.doorjam.data.DJBlockTags;
+import archives.tater.doorjam.data.DoorJamBlockTagProvider;
 import net.minecraft.block.*;
-import net.minecraft.block.Oxidizable.OxidationLevel;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-import org.spongepowered.asm.mixin.Final;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(OxidizableDoorBlock.class)
-public abstract class DoorMixin extends DoorBlock {
+@Mixin(DoorBlock.class)
+public abstract class DoorMixin {
 
-	public DoorMixin(BlockSetType type, Settings settings) {
-		super(type, settings);
-	}
+	@Shadow protected abstract void playOpenCloseSound(@Nullable Entity entity, World world, BlockPos pos, boolean open);
 
-	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		OxidizableDoorBlock door = (OxidizableDoorBlock) state.getBlock();
-		OxidationLevel oxidationLevel = door.getDegradationLevel();
-		boolean oxidized = oxidationLevel != OxidationLevel.UNAFFECTED;
+	@Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
+	private void doorOverride(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir){
+		Random random = world.getRandom();
 
-		if (oxidized) {
-			if (world.isClient) return ActionResult.success(true);
+		/*
+			If Block is in one of the block chance tags and the chance passes, then cancel the block interaction code.
+		 */
+		if ((DoorJam.isJammed(state, random))){
+			playOpenCloseSound(player, world, pos, false);
+			player.swingHand(player.getActiveHand());
+			cir.setReturnValue(ActionResult.SUCCESS);
 
-			if (
-					oxidationLevel == OxidationLevel.OXIDIZED ||
-					// Exposed door has a 25% chance of jamming
-					(oxidationLevel == OxidationLevel.EXPOSED && world.random.nextFloat() < 0.25) ||
-					// Weathered door has a 50% chance of jamming
-					(oxidationLevel == OxidationLevel.WEATHERED && world.random.nextFloat() < 0.5)
-			) {
-				world.playSound(null, pos, this.getBlockSetType().doorClose(), SoundCategory.BLOCKS, 0.9f, 0.4f);
-				return ActionResult.SUCCESS;
-			}
-		}
-
-		// Mostly copied from DoorBlock
-		if (!this.getBlockSetType().canOpenByHand()) {
-			return ActionResult.PASS;
-		} else {
-			state = state.cycle(OPEN);
-			world.setBlockState(pos, state, 10);
-			((DoorBlockInvoker) this).invokePlayOpenCloseSound(oxidized ? null : player, world, pos, state.get(OPEN));
-			world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-			return ActionResult.success(world.isClient);
+			//Cancel block's vanilla code.
+			cir.cancel();
 		}
 	}
 }

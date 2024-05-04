@@ -15,6 +15,9 @@
 	"icon": "assets/doorjam/icon.png",
 	"environment": "*",
 	"entrypoints": {
+	    "fabric-datagen": [
+            "archives.tater.doorjam.DoorJamDataGenerator"
+        ],
 		"main": [
 			"archives.tater.doorjam.DoorJam"
 		]
@@ -24,8 +27,9 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.3",
-		"java": ">=17"
+		"minecraft": "~1.20.5",
+		"java": ">=21",
+        "fabric-api": "*"
 	},
 	"suggests": {
 		"another-mod": "*"
