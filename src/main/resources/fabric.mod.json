@@ -3,15 +3,15 @@
 	"id": "doorjam",
 	"version": "${version}",
 	"name": "Door Jam",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Rusty copper doors tend to jam",
 	"authors": [
 		"ThePotatoArchivist"
 	],
 	"contact": {
-		"homepage": "https://github.com/JosiahFu/DoorJam",
+		"homepage": "https://modrinth.com/mod/door-jam",
 		"sources": "https://github.com/JosiahFu/DoorJam"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/doorjam/icon.png",
 	"environment": "*",
 	"entrypoints": {
