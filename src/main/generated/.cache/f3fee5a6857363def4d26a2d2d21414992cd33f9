@@ -1,0 +1,4 @@
+// 1.20.6	2024-05-03T22:33:03.4960681	Door Jam/Tags for minecraft:block
+c45a59634157723813369bd38251caf4e4b8e3ca data\doorjam\tags\blocks\slight_jamming_chance.json
+bb06932e1e74bec003b71740c6358d3b1bec35cc data\doorjam\tags\blocks\half_jamming_chance.json
+2a613a3158c390bb3712492c73359fdc4eaf6c8e data\doorjam\tags\blocks\full_jamming_chance.json
