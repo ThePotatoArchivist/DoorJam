@@ -5,7 +5,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class DJBlockTags {
+public class DoorJamBlockTags {
 
     public static final TagKey<Block> FULL_JAMMING_CHANCE = of("full_jamming_chance");
     public static final TagKey<Block> HALF_JAMMING_CHANCE = of("half_jamming_chance");

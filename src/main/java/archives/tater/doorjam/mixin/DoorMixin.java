@@ -26,7 +26,7 @@ public abstract class DoorMixin {
 
 	@Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
 	private void doorOverride(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir){
-		if (!DoorJam.tryOpenDoor(world, player, pos, state, this.blockSetType)) return;
+		if (DoorJam.tryOpenDoor(world, player, pos, state, this.blockSetType)) return;
 
 		player.swingHand(player.getActiveHand());
 		cir.setReturnValue(ActionResult.SUCCESS);
