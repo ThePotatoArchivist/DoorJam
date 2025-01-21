@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.9.+'
 	id 'maven-publish'
 }
 
@@ -10,10 +10,22 @@ base {
 	archivesName = project.archives_base_name
 }
 fabricApi {
-	configureDataGeneration()
+	configureDataGeneration() {
+		client = true
+	}
 }
 repositories {
-
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 loom {
@@ -25,7 +37,6 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
-
 }
 
 dependencies {
@@ -35,6 +46,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modCompileOnlyApi "maven.modrinth:vanilla-shutters:${project.vanilla_shutter_version}"
 }
 
 processResources {

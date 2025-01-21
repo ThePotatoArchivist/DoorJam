@@ -1,6 +1,10 @@
 {
   "values": [
     "minecraft:oxidized_copper_door",
-    "minecraft:oxidized_copper_trapdoor"
+    "minecraft:oxidized_copper_trapdoor",
+    {
+      "id": "shutter:oxidized_copper_shutter",
+      "required": false
+    }
   ]
 }

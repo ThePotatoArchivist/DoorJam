@@ -1,6 +1,10 @@
 {
   "values": [
     "minecraft:exposed_copper_door",
-    "minecraft:exposed_copper_trapdoor"
+    "minecraft:exposed_copper_trapdoor",
+    {
+      "id": "shutter:exposed_copper_shutter",
+      "required": false
+    }
   ]
 }

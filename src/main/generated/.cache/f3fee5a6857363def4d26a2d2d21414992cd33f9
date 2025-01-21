@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-08T01:49:51.850443377	Door Jam/Tags for minecraft:block
-c45a59634157723813369bd38251caf4e4b8e3ca data/doorjam/tags/block/slight_jamming_chance.json
-2a613a3158c390bb3712492c73359fdc4eaf6c8e data/doorjam/tags/block/full_jamming_chance.json
-bb06932e1e74bec003b71740c6358d3b1bec35cc data/doorjam/tags/block/half_jamming_chance.json
+// 1.21.4	-999999999-01-01T00:00:00	Door Jam/Tags for minecraft:block
+1c90eeaa0fe0c6b354314bf42d45680b2d259480 data/doorjam/tags/block/full_jamming_chance.json
+8c7906ebd5ae6f2633b18964812f2d6761053007 data/doorjam/tags/block/half_jamming_chance.json
+8366e5eec309f3730c4f19049e02074888636c97 data/doorjam/tags/block/slight_jamming_chance.json

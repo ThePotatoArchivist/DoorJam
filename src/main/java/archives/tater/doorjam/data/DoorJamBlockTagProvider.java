@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,12 +20,19 @@ public class DoorJamBlockTagProvider extends FabricTagProvider<Block> {
     protected void configure(WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(DoorJamBlockTags.SLIGHT_JAMMING_CHANCE)
                 .add(Blocks.EXPOSED_COPPER_DOOR)
-                .add(Blocks.EXPOSED_COPPER_TRAPDOOR);
+                .add(Blocks.EXPOSED_COPPER_TRAPDOOR)
+                .addOptional(Identifier.of("shutter", "exposed_copper_shutter"))
+        ;
+
         getOrCreateTagBuilder(DoorJamBlockTags.HALF_JAMMING_CHANCE)
                 .add(Blocks.WEATHERED_COPPER_DOOR)
-                .add(Blocks.WEATHERED_COPPER_TRAPDOOR);
+                .add(Blocks.WEATHERED_COPPER_TRAPDOOR)
+                .addOptional(Identifier.of("shutter", "weathered_copper_shutter"))
+        ;
         getOrCreateTagBuilder(DoorJamBlockTags.FULL_JAMMING_CHANCE)
                 .add(Blocks.OXIDIZED_COPPER_DOOR)
-                .add(Blocks.OXIDIZED_COPPER_TRAPDOOR);
+                .add(Blocks.OXIDIZED_COPPER_TRAPDOOR)
+                .addOptional(Identifier.of("shutter", "oxidized_copper_shutter"))
+        ;
     }
 }

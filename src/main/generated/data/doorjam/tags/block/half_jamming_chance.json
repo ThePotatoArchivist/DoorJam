@@ -1,6 +1,10 @@
 {
   "values": [
     "minecraft:weathered_copper_door",
-    "minecraft:weathered_copper_trapdoor"
+    "minecraft:weathered_copper_trapdoor",
+    {
+      "id": "shutter:weathered_copper_shutter",
+      "required": false
+    }
   ]
 }
