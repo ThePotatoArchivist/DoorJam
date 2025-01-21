@@ -5,6 +5,10 @@
     {
       "id": "shutter:weathered_copper_shutter",
       "required": false
+    },
+    {
+      "id": "metalfences:weathered_copper_fence_gate",
+      "required": false
     }
   ]
 }

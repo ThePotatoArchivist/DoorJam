@@ -5,6 +5,10 @@
     {
       "id": "shutter:exposed_copper_shutter",
       "required": false
+    },
+    {
+      "id": "metalfences:exposed_copper_fence_gate",
+      "required": false
     }
   ]
 }

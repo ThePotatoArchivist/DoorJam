@@ -6,7 +6,8 @@
 	"mixins": [
 		"DoorMixin",
 		"TrapdoorMixin",
-		"ShutterBlockMixin"
+		"ShutterBlockMixin",
+		"FenceGateBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
