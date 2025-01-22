@@ -2,9 +2,13 @@
 	"required": true,
 	"package": "archives.tater.doorjam.mixin",
 	"compatibilityLevel": "JAVA_21",
+	"plugin": "archives.tater.doorjam.mixin.DJMixinPlugin",
 	"mixins": [
 		"DoorMixin",
-		"TrapdoorMixin"
+		"TrapdoorMixin",
+		"VanillaShutterBlockMixin",
+		"ShutterMixin",
+        "FenceGateBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
