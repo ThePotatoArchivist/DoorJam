@@ -12,7 +12,7 @@ public class DoorJamBlockTags {
     public static final TagKey<Block> SLIGHT_JAMMING_CHANCE = of("slight_jamming_chance");
 
     private static TagKey<Block> of(String id) {
-        return TagKey.of(RegistryKeys.BLOCK, new Identifier("doorjam",id));
+        return TagKey.of(RegistryKeys.BLOCK, Identifier.of("doorjam", id));
     }
 
 

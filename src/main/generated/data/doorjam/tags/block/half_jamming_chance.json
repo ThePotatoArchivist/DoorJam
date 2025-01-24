@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:weathered_copper_door",
+    "minecraft:weathered_copper_trapdoor",
+    {
+      "id": "shutter:weathered_copper_shutter",
+      "required": false
+    },
+    {
+      "id": "metalfences:weathered_copper_fence_gate",
+      "required": false
+    }
+  ]
+}
