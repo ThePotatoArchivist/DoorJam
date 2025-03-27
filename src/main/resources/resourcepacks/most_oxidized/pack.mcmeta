@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "description": "Makes oxidized doors only jam 75% of the time",
+    "pack_format": 48
+  }
+}
