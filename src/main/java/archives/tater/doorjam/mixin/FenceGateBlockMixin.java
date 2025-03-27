@@ -2,10 +2,10 @@ package archives.tater.doorjam.mixin;
 
 import archives.tater.doorjam.DoorJam;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockSetType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.WoodType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -34,10 +34,10 @@ public class FenceGateBlockMixin {
 
     @ModifyArg(
             method = "onUse",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
             index = 0
     )
-    private PlayerEntity playSoundToClient(PlayerEntity source, @Local(argsOnly = true) BlockState blockState) {
+    private Entity playSoundToClient(Entity source, @Local(argsOnly = true) BlockState blockState) {
         return DoorJam.mayJam(blockState) ? null : source;
     }
 }
