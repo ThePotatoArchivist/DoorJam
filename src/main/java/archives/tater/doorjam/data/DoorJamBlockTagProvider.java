@@ -18,10 +18,11 @@ public class DoorJamBlockTagProvider extends FabricTagProvider<Block> {
         super(output, RegistryKeys.BLOCK, registriesFuture);
     }
 
-    private static final Map<String, String> COMPAT_LIST = ImmutableMap.of(
+    protected static final Map<String, String> COMPAT_LIST = ImmutableMap.of(
             "shutter", "shutter",
             "metalfences", "fence_gate"
     );
+
     @Override
     protected void configure(WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(DoorJamBlockTags.SLIGHT_JAMMING_CHANCE)
