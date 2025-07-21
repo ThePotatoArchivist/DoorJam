@@ -14,14 +14,14 @@ public class DoorJamAltBlockTagProvider extends DoorJamBlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(DoorJamBlockTags.FULL_JAMMING_CHANCE).setReplace(true);
+        valueLookupBuilder(DoorJamBlockTags.FULL_JAMMING_CHANCE).setReplace(true);
 
-        getOrCreateTagBuilder(DoorJamBlockTags.MOST_JAMMING_CHANCE)
+        valueLookupBuilder(DoorJamBlockTags.MOST_JAMMING_CHANCE)
                 .add(Blocks.OXIDIZED_COPPER_DOOR)
                 .add(Blocks.OXIDIZED_COPPER_TRAPDOOR);
 
         COMPAT_LIST.forEach((modid, itemName) -> {
-            getOrCreateTagBuilder(DoorJamBlockTags.MOST_JAMMING_CHANCE).addOptional(Identifier.of(modid, "oxidized_copper_" + itemName));
+            getTagBuilder(DoorJamBlockTags.MOST_JAMMING_CHANCE).addOptional(Identifier.of(modid, "oxidized_copper_" + itemName));
         });
     }
 }
