@@ -52,7 +52,7 @@ public class DoorJam implements ModInitializer {
         if (DoorJam.alwaysJam(state)) {
             DoorJam.playLockedSound(world, player, pos, blockSetType);
         } else if (DoorJam.mayJam(state)) {
-            if (!world.isClient)
+            if (!world.isClient())
                 if (DoorJam.isJammed(state, world.getRandom())) {
                     DoorJam.playLockedSound(world, null, pos, blockSetType);
                 } else {
