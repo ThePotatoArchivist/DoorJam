@@ -1,16 +1,8 @@
 package archives.tater.doorjam.mixin;
 
 import archives.tater.doorjam.DoorJam;
+
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.WoodType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,25 +11,37 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.phys.BlockHitResult;
+
+import org.jspecify.annotations.Nullable;
+
 @Mixin(FenceGateBlock.class)
 public class FenceGateBlockMixin {
 
     @Shadow @Final private WoodType type;
 
-    @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
-    private void doorOverride(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir){
-        if (DoorJam.tryOpenDoor(world, player, pos, state, this.type.setType())) return;
+    @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
+    private void doorOverride(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir){
+        if (DoorJam.tryOpenDoor(level, player, pos, state, this.type.setType())) return;
 
-        player.swingHand(player.getActiveHand());
-        cir.setReturnValue(ActionResult.SUCCESS);
+        player.swing(player.getUsedItemHand());
+        cir.setReturnValue(InteractionResult.SUCCESS);
     }
 
     @ModifyArg(
-            method = "onUse",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
+            method = "useWithoutItem",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"),
             index = 0
     )
-    private Entity playSoundToClient(Entity source, @Local(argsOnly = true) BlockState blockState) {
+    private @Nullable Entity playSoundToClient(@Nullable Entity source, @Local(argsOnly = true) BlockState blockState) {
         return DoorJam.mayJam(blockState) ? null : source;
     }
 }

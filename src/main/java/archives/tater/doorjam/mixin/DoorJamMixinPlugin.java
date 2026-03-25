@@ -1,18 +1,19 @@
 package archives.tater.doorjam.mixin;
 
-import archives.tater.doorjam.DoorJam;
-import com.google.common.collect.ImmutableMap;
 import net.fabricmc.loader.api.FabricLoader;
-import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.objectweb.asm.tree.ClassNode;
+
+import com.google.common.collect.ImmutableMap;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class DJMixinPlugin implements IMixinConfigPlugin {
+public class DoorJamMixinPlugin implements IMixinConfigPlugin {
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
             "archives.tater.doorjam.mixin.ShutterBlockMixin", () -> FabricLoader.getInstance().isModLoaded("shutter")
     );
@@ -22,7 +23,7 @@ public class DJMixinPlugin implements IMixinConfigPlugin {
     }
 
     @Override
-    public String getRefMapperConfig() {
+    public @Nullable String getRefMapperConfig() {
         return null;
     }
 
@@ -37,7 +38,7 @@ public class DJMixinPlugin implements IMixinConfigPlugin {
     }
 
     @Override
-    public List<String> getMixins() {
+    public @Nullable List<String> getMixins() {
         return null;
     }
 

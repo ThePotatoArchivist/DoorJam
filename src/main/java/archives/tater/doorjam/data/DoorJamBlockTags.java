@@ -1,9 +1,9 @@
 package archives.tater.doorjam.data;
 
 import archives.tater.doorjam.DoorJam;
-import net.minecraft.block.Block;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 
 public class DoorJamBlockTags {
 
@@ -13,7 +13,7 @@ public class DoorJamBlockTags {
     public static final TagKey<Block> SLIGHT_JAMMING_CHANCE = of("slight_jamming_chance");
 
     private static TagKey<Block> of(String id) {
-        return TagKey.of(RegistryKeys.BLOCK, DoorJam.id(id));
+        return TagKey.create(Registries.BLOCK, DoorJam.id(id));
     }
 
 

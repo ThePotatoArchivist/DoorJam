@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/door-jam",
-		"sources": "https://github.com/JosiahFu/DoorJam"
+		"sources": "https://github.com/ThePotatoArchivist/DoorJam"
 	},
 	"license": "MIT",
 	"icon": "assets/doorjam/icon.png",
@@ -26,9 +26,9 @@
 		"doorjam.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.17.0",
-		"minecraft": ">=1.21.9",
-		"java": ">=21",
+		"fabricloader": ">=0.18.4",
+		"minecraft": ">=26.1",
+		"java": ">=25",
         "fabric-api": "*"
 	},
 	"suggests": {
