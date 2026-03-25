@@ -1,14 +1,15 @@
 {
-	"required": true,
-	"package": "archives.tater.doorjam.mixin",
-	"compatibilityLevel": "JAVA_25",
-	"plugin": "archives.tater.doorjam.mixin.DoorJamMixinPlugin",
-	"mixins": [
-      "DoorBlockMixin",
-		"TrapDoorBlockMixin",
-		"FenceGateBlockMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "archives.tater.doorjam.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "plugin": "archives.tater.doorjam.mixin.DoorJamMixinPlugin",
+  "mixins": [
+    "ChestBlockMixin",
+    "DoorBlockMixin",
+    "FenceGateBlockMixin",
+    "TrapDoorBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

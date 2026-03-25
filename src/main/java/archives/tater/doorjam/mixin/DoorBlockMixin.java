@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jspecify.annotations.Nullable;
+
 @Mixin(DoorBlock.class)
 public abstract class DoorBlockMixin {
 
@@ -39,7 +41,7 @@ public abstract class DoorBlockMixin {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/DoorBlock;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Z)V"),
 			index = 0
 	)
-	private Entity playSoundToClient(Entity entity, @Local(argsOnly = true) BlockState blockState) {
+	private @Nullable Entity playSoundToClient(@Nullable Entity entity, @Local(argsOnly = true) BlockState blockState) {
 		return DoorJam.mayJam(blockState) ? null : entity;
 	}
 }

@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jspecify.annotations.Nullable;
+
 @Mixin(TrapDoorBlock.class)
 public abstract class TrapDoorBlockMixin {
 
@@ -38,7 +40,7 @@ public abstract class TrapDoorBlockMixin {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/TrapDoorBlock;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Z)V"),
 			index = 0
 	)
-	private Player playSoundToClient(Player entity, @Local(argsOnly = true) BlockState blockState) {
+	private @Nullable Player playSoundToClient(@Nullable Player entity, @Local(argsOnly = true) BlockState blockState) {
 		return DoorJam.mayJam(blockState) ? null : entity;
 	}
 }

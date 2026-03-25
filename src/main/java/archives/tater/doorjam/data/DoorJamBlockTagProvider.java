@@ -25,16 +25,23 @@ public class DoorJamBlockTagProvider extends FabricTagsProvider.BlockTagsProvide
 
     @Override
     protected void addTags(Provider wrapperLookup) {
-        valueLookupBuilder(DoorJamBlockTags.SLIGHT_JAMMING_CHANCE)
-                .add(Blocks.EXPOSED_COPPER_DOOR)
-                .add(Blocks.EXPOSED_COPPER_TRAPDOOR);
+        valueLookupBuilder(DoorJamBlockTags.SLIGHT_JAMMING_CHANCE).add(
+                Blocks.EXPOSED_COPPER_DOOR,
+                Blocks.EXPOSED_COPPER_TRAPDOOR,
+                Blocks.EXPOSED_COPPER_CHEST
+        );
 
-        valueLookupBuilder(DoorJamBlockTags.HALF_JAMMING_CHANCE)
-                .add(Blocks.WEATHERED_COPPER_DOOR)
-                .add(Blocks.WEATHERED_COPPER_TRAPDOOR);
-        valueLookupBuilder(DoorJamBlockTags.FULL_JAMMING_CHANCE)
-                .add(Blocks.OXIDIZED_COPPER_DOOR)
-                .add(Blocks.OXIDIZED_COPPER_TRAPDOOR);
+        valueLookupBuilder(DoorJamBlockTags.HALF_JAMMING_CHANCE).add(
+                Blocks.WEATHERED_COPPER_DOOR,
+                Blocks.WEATHERED_COPPER_TRAPDOOR,
+                Blocks.WEATHERED_COPPER_CHEST
+        );
+
+        valueLookupBuilder(DoorJamBlockTags.FULL_JAMMING_CHANCE).add(
+                Blocks.OXIDIZED_COPPER_DOOR,
+                Blocks.OXIDIZED_COPPER_TRAPDOOR,
+                Blocks.OXIDIZED_COPPER_CHEST
+        );
 
         COMPAT_LIST.forEach((modid, itemName) -> {
             getOrCreateRawBuilder(DoorJamBlockTags.SLIGHT_JAMMING_CHANCE).addOptionalElement(Identifier.fromNamespaceAndPath(modid, "exposed_copper_" + itemName));
